@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "color.h"
 #include "keycodes.h"
 #include "keymap_german.h"
+#include "modifiers.h"
 #include "quantum_keycodes.h"
 #include "rgb_matrix.h"
 #include "rgb_matrix_types.h"
@@ -53,42 +54,42 @@ const KeyColor key_colors[] = {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌──────┬───┬───┬───┬───────────────┬───────┐                               ┌───────┬────────────┬───┬───┬───┬──────┐
-//    │ tab  │ q │ w │ e │       r       │   t   │                               │   Y   │     u      │ i │ o │ p │ bspc │
-//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
-//    │ lctl │ a │ s │ d │       f       │   g   │                               │   h   │     j      │ k │ l │ ; │  '   │
-//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
-//    │ ralt │ Z │ x │ c │       v       │   b   │                               │   n   │     m      │ , │ . │ / │ esc  │
-//    └──────┴───┴───┴───┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼────────────┼───┴───┴───┴──────┘
-//                       │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT │
-//                       └───────────────┴───────┴─────┘   └─────────────────────┴───────┴────────────┘
+//    ┌──────┬─────────────┬─────────────┬─────────────┬───────────────┬───────┐                               ┌───────┬─────────────┬─────────────┬─────────────┬─────────────┬──────┐
+//    │ tab  │      q      │      w      │      e      │       r       │   t   │                               │   y   │      u      │      i      │      o      │      p      │ bspc │
+//    ├──────┼─────────────┼─────────────┼─────────────┼───────────────┼───────┤                               ├───────┼─────────────┼─────────────┼─────────────┼─────────────┼──────┤
+//    │ lctl │ MT(lalt, a) │ MT(lctl, s) │ MT(lgui, d) │  MT(lsft, f)  │   g   │                               │   h   │ MT(rsft, j) │ MT(rgui, k) │ MT(rctl, l) │ MT(ralt, ;) │  '   │
+//    ├──────┼─────────────┼─────────────┼─────────────┼───────────────┼───────┤                               ├───────┼─────────────┼─────────────┼─────────────┼─────────────┼──────┤
+//    │ ralt │      z      │      x      │      c      │       v       │   b   │                               │   n   │      m      │      ,      │      .      │      /      │ esc  │
+//    └──────┴─────────────┴─────────────┴─────────────┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼─────────────┼─────────────┴─────────────┴─────────────┴──────┘
+//                                                     │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT  │
+//                                                     └───────────────┴───────┴─────┘   └─────────────────────┴───────┴─────────────┘
 [LAYER_BASE] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_E , KC_R                , KC_T  ,                                           DE_Y  , KC_U          , KC_I    , KC_O   , KC_P    , KC_BSPC,
-  KC_LCTL , KC_A , KC_S , KC_D , KC_F                , KC_G  ,                                           KC_H  , KC_J          , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
-  KC_RALT , DE_Z , KC_X , KC_C , KC_V                , KC_B  ,                                           KC_N  , KC_M          , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
-                                 MT(KC_LGUI, KC_ESC) , MO(1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(2) , KC_LEFT_SHIFT
+  KC_TAB  , KC_Q               , KC_W               , KC_E               , KC_R                , KC_T  ,                                           DE_Y  , KC_U               , KC_I               , KC_O               , KC_P                  , KC_BSPC,
+  KC_LCTL , MT(MOD_LALT, KC_A) , MT(MOD_LCTL, KC_S) , MT(MOD_LGUI, KC_D) , MT(MOD_LSFT, KC_F)  , KC_G  ,                                           KC_H  , MT(MOD_RSFT, KC_J) , MT(MOD_RGUI, KC_K) , MT(MOD_RCTL, KC_L) , MT(MOD_RALT, DE_SCLN) , DE_QUOT,
+  KC_RALT , DE_Z               , KC_X               , KC_C               , KC_V                , KC_B  ,                                           KC_N  , KC_M               , KC_COMM            , DE_DOT             , DE_SLSH               , KC_ESC ,
+                                                                           MT(KC_LGUI, KC_ESC) , MO(1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(2) , KC_LEFT_SHIFT
 ),
 
-//    ┌──────┬───┬───┬───┬───────────────┬───────┐                               ┌───────┬────────────┬───┬───┬───┬──────┐
-//    │ tab  │ q │ w │ f │       p       │   b   │                               │   j   │     l      │ u │ Y │ ; │ bspc │
-//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
-//    │ lctl │ a │ r │ s │       t       │   g   │                               │   m   │     n      │ e │ i │ o │  '   │
-//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
-//    │ ralt │ Z │ x │ c │       d       │   v   │                               │   k   │     h      │ , │ . │ / │ esc  │
-//    └──────┴───┴───┴───┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼────────────┼───┴───┴───┴──────┘
-//                       │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT │
-//                       └───────────────┴───────┴─────┘   └─────────────────────┴───────┴────────────┘
+//    ┌──────┬─────────────┬─────────────┬─────────────┬───────────────┬───────┐                               ┌───────┬─────────────┬─────────────┬─────────────┬─────────────┬──────┐
+//    │ tab  │      q      │      w      │      f      │       p       │   b   │                               │   j   │      l      │      u      │      y      │      ;      │ bspc │
+//    ├──────┼─────────────┼─────────────┼─────────────┼───────────────┼───────┤                               ├───────┼─────────────┼─────────────┼─────────────┼─────────────┼──────┤
+//    │ lctl │ MT(lalt, a) │ MT(lctl, r) │ MT(lgui, s) │  MT(lsft, t)  │   g   │                               │   m   │ MT(rsft, n) │ MT(rgui, e) │ MT(rctl, i) │ MT(ralt, o) │  '   │
+//    ├──────┼─────────────┼─────────────┼─────────────┼───────────────┼───────┤                               ├───────┼─────────────┼─────────────┼─────────────┼─────────────┼──────┤
+//    │ ralt │      z      │      x      │      c      │       d       │   v   │                               │   k   │      h      │      ,      │      .      │      /      │ esc  │
+//    └──────┴─────────────┴─────────────┴─────────────┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼─────────────┼─────────────┴─────────────┴─────────────┴──────┘
+//                                                     │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT  │
+//                                                     └───────────────┴───────┴─────┘   └─────────────────────┴───────┴─────────────┘
 [LAYER_COLEMAK_DH] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_F , KC_P                , KC_B  ,                                           KC_J  , KC_L          , KC_U    , DE_Y   , KC_SCLN , KC_BSPC,
-  KC_LCTL , KC_A , KC_R , KC_S , KC_T                , KC_G  ,                                           KC_M  , KC_N          , KC_E    , KC_I   , KC_O    , KC_QUOT,
-  KC_RALT , DE_Z , KC_X , KC_C , KC_D                , KC_V  ,                                           KC_K  , KC_H          , KC_COMM , KC_DOT , KC_SLSH , KC_ESC ,
-                                 MT(KC_LGUI, KC_ESC) , MO(1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(2) , KC_LEFT_SHIFT
+  KC_TAB  , KC_Q               , KC_W               , KC_F               , KC_P                , KC_B  ,                                           KC_J  , KC_L               , KC_U               , DE_Y               , KC_SCLN            , KC_BSPC,
+  KC_LCTL , MT(MOD_LALT, KC_A) , MT(MOD_LCTL, KC_R) , MT(MOD_LGUI, KC_S) , MT(MOD_LSFT, KC_T)  , KC_G  ,                                           KC_M  , MT(MOD_RSFT, KC_N) , MT(MOD_RGUI, KC_E) , MT(MOD_RCTL, KC_I) , MT(MOD_RALT, KC_O) , KC_QUOT,
+  KC_RALT , DE_Z               , KC_X               , KC_C               , KC_D                , KC_V  ,                                           KC_K  , KC_H               , KC_COMM            , KC_DOT             , KC_SLSH            , KC_ESC ,
+                                                                           MT(KC_LGUI, KC_ESC) , MO(1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(2) , KC_LEFT_SHIFT
 ),
 
 //    ┌──────┬────┬────┬────┬──────┬─────┐               ┌───────┬──────┬───┬──────┬────┬──────┐
 //    │ tab  │ no │ no │ no │  no  │ no  │               │   7   │  8   │ 9 │  no  │ no │ bspc │
 //    ├──────┼────┼────┼────┼──────┼─────┤               ├───────┼──────┼───┼──────┼────┼──────┤
-//    │ lctl │ Ä  │ no │ no │  no  │ no  │               │   4   │  5   │ 6 │ rght │ no │  no  │
+//    │ lctl │ ä  │ no │ no │  no  │ no  │               │   4   │  5   │ 6 │ rght │ no │  no  │
 //    ├──────┼────┼────┼────┼──────┼─────┤               ├───────┼──────┼───┼──────┼────┼──────┤
 //    │ lsft │ no │ no │ no │  no  │ no  │               │   1   │  2   │ 3 │  0   │ no │  no  │
 //    └──────┴────┴────┴────┼──────┼─────┼─────┐   ┌─────┼───────┼──────┼───┴──────┴────┴──────┘
@@ -134,11 +135,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 //    ┌──────┬───┬───┬───┬───────────────┬───────┐                               ┌───────┬────────────┬───┬───┬───┬──────┐
-//    │ tab  │ q │ w │ e │       r       │   t   │                               │   Y   │     u      │ i │ o │ p │ bspc │
+//    │ tab  │ q │ w │ e │       r       │   t   │                               │   y   │     u      │ i │ o │ p │ bspc │
 //    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
 //    │ lctl │ a │ s │ d │       f       │   g   │                               │   h   │     j      │ k │ l │ ; │  '   │
 //    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
-//    │ ralt │ Z │ x │ c │       v       │   b   │                               │   n   │     m      │ , │ . │ / │ esc  │
+//    │ ralt │ z │ x │ c │       v       │   b   │                               │   n   │     m      │ , │ . │ / │ esc  │
 //    └──────┴───┴───┴───┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼────────────┼───┴───┴───┴──────┘
 //                       │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT │
 //                       └───────────────┴───────┴─────┘   └─────────────────────┴───────┴────────────┘
