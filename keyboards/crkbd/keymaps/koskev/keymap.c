@@ -32,10 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern void rgb_matrix_update_pwm_buffers(void);
 #endif // RGB_MATRIX_ENABLE
 
-#ifndef PROGMEM
-#    define PROGMEM
-#endif
-
 enum unicode_names { DE_LOWER_SS, DE_LOWER_AE, DE_UPPER_AE, DE_LOWER_OE, DE_UPPER_OE, DE_LOWER_UE, DE_UPPER_UE };
 
 enum layers { LAYER_BASE, LAYER_1, LAYER_2, LAYER_OPTIONS, LAYER_COLEMAK_DH, LAYER_GAMING };
@@ -49,16 +45,10 @@ typedef struct {
     uint8_t  color[3];
 } KeyColor;
 
-const KeyColor key_colors[] = {{DF(LAYER_BASE), LAYER_BASE_COLOR}, {DF(LAYER_COLEMAK_DH), LAYER_COLEMAK_DH_COLOR}, {DF(LAYER_GAMING), LAYER_GAMING_COLOR}};
-
-const uint32_t PROGMEM unicode_map[] = {
-    [DE_LOWER_SS] = 0x00DF, // ß
-    [DE_UPPER_AE] = 0x00C4, // Ä
-    [DE_LOWER_AE] = 0x00E4, // ä
-    [DE_UPPER_OE] = 0x00D6, // Ö
-    [DE_LOWER_OE] = 0x00F6, // ö
-    [DE_UPPER_UE] = 0x00DC, // Ü
-    [DE_LOWER_UE] = 0x00FC, // ü
+const KeyColor key_colors[] = {
+    {.key = DF(LAYER_BASE), .color = {LAYER_BASE_COLOR}},
+    {.key = DF(LAYER_COLEMAK_DH), .color = {LAYER_COLEMAK_DH_COLOR}},
+    {.key = DF(LAYER_GAMING), .color = {LAYER_GAMING_COLOR}},
 };
 
 // clang-format off
