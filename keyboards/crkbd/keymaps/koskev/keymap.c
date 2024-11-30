@@ -16,6 +16,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdint.h>
+#include <string.h>
+#include "action_layer.h"
+#include "color.h"
+#include "keycodes.h"
+#include "keymap_german.h"
+#include "quantum_keycodes.h"
+#include "rgb_matrix.h"
+#include "rgb_matrix_types.h"
+#include "sendstring_german.h"
 #include QMK_KEYBOARD_H
 
 #ifdef RGB_MATRIX_ENABLE
@@ -28,7 +38,18 @@ extern void rgb_matrix_update_pwm_buffers(void);
 
 enum unicode_names { DE_LOWER_SS, DE_LOWER_AE, DE_UPPER_AE, DE_LOWER_OE, DE_UPPER_OE, DE_LOWER_UE, DE_UPPER_UE };
 
-enum layers { LAYER_BASE, LAYER_1, LAYER_2, LAYER_3 };
+enum layers { LAYER_BASE, LAYER_1, LAYER_2, LAYER_OPTIONS, LAYER_COLEMAK_DH, LAYER_GAMING };
+
+#define LAYER_BASE_COLOR RGB_GREEN
+#define LAYER_COLEMAK_DH_COLOR RGB_ORANGE
+#define LAYER_GAMING_COLOR RGB_RED
+
+typedef struct {
+    uint16_t key;
+    uint8_t  color[3];
+} KeyColor;
+
+const KeyColor key_colors[] = {{DF(LAYER_BASE), LAYER_BASE_COLOR}, {DF(LAYER_COLEMAK_DH), LAYER_COLEMAK_DH_COLOR}, {DF(LAYER_GAMING), LAYER_GAMING_COLOR}};
 
 const uint32_t PROGMEM unicode_map[] = {
     [DE_LOWER_SS] = 0x00DF, // ß
@@ -42,36 +63,52 @@ const uint32_t PROGMEM unicode_map[] = {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌──────┬───┬───┬───┬──────┬───────┐               ┌───────┬────────────┬───┬───┬───┬──────┐
-//    │ tab  │ q │ w │ e │  r   │   t   │               │   y   │     u      │ i │ o │ p │ bspc │
-//    ├──────┼───┼───┼───┼──────┼───────┤               ├───────┼────────────┼───┼───┼───┼──────┤
-//    │ lctl │ a │ s │ d │  f   │   g   │               │   h   │     j      │ k │ l │ ; │  '   │
-//    ├──────┼───┼───┼───┼──────┼───────┤               ├───────┼────────────┼───┼───┼───┼──────┤
-//    │ ralt │ z │ x │ c │  v   │   b   │               │   n   │     m      │ , │ . │ / │ esc  │
-//    └──────┴───┴───┴───┼──────┼───────┼─────┐   ┌─────┼───────┼────────────┼───┴───┴───┴──────┘
-//                       │ lgui │ MO(1) │ spc │   │ ent │ MO(2) │ left_SHIFT │
-//                       └──────┴───────┴─────┘   └─────┴───────┴────────────┘
+//    ┌──────┬───┬───┬───┬───────────────┬───────┐                               ┌───────┬────────────┬───┬───┬───┬──────┐
+//    │ tab  │ q │ w │ e │       r       │   t   │                               │   Y   │     u      │ i │ o │ p │ bspc │
+//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
+//    │ lctl │ a │ s │ d │       f       │   g   │                               │   h   │     j      │ k │ l │ ; │  '   │
+//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
+//    │ ralt │ Z │ x │ c │       v       │   b   │                               │   n   │     m      │ , │ . │ / │ esc  │
+//    └──────┴───┴───┴───┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼────────────┼───┴───┴───┴──────┘
+//                       │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT │
+//                       └───────────────┴───────┴─────┘   └─────────────────────┴───────┴────────────┘
 [LAYER_BASE] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_E , KC_R    , KC_T  ,                       KC_Y  , KC_U          , KC_I    , KC_O   , KC_P    , KC_BSPC,
-  KC_LCTL , KC_A , KC_S , KC_D , KC_F    , KC_G  ,                       KC_H  , KC_J          , KC_K    , KC_L   , KC_SCLN , KC_QUOT,
-  KC_RALT , KC_Z , KC_X , KC_C , KC_V    , KC_B  ,                       KC_N  , KC_M          , KC_COMM , KC_DOT , KC_SLSH , KC_ESC ,
-                                 KC_LGUI , MO(1) , KC_SPC ,     KC_ENT , MO(2) , KC_LEFT_SHIFT
+  KC_TAB  , KC_Q , KC_W , KC_E , KC_R                , KC_T  ,                                           DE_Y  , KC_U          , KC_I    , KC_O   , KC_P    , KC_BSPC,
+  KC_LCTL , KC_A , KC_S , KC_D , KC_F                , KC_G  ,                                           KC_H  , KC_J          , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
+  KC_RALT , DE_Z , KC_X , KC_C , KC_V                , KC_B  ,                                           KC_N  , KC_M          , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
+                                 MT(KC_LGUI, KC_ESC) , MO(1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(2) , KC_LEFT_SHIFT
 ),
 
-//    ┌──────┬──────────────────────────────┬────┬────┬──────┬─────┐               ┌───────┬──────┬───┬──────┬────┬──────┐
-//    │ tab  │              no              │ no │ no │  no  │ no  │               │   7   │  8   │ 9 │  no  │ no │ bspc │
-//    ├──────┼──────────────────────────────┼────┼────┼──────┼─────┤               ├───────┼──────┼───┼──────┼────┼──────┤
-//    │ lctl │ UP(DE_LOWER_AE, DE_UPPER_AE) │ no │ no │  no  │ no  │               │   4   │  5   │ 6 │ rght │ no │  no  │
-//    ├──────┼──────────────────────────────┼────┼────┼──────┼─────┤               ├───────┼──────┼───┼──────┼────┼──────┤
-//    │ lsft │              no              │ no │ no │  no  │ no  │               │   1   │  2   │ 3 │  0   │ no │  no  │
-//    └──────┴──────────────────────────────┴────┴────┼──────┼─────┼─────┐   ┌─────┼───────┼──────┼───┴──────┴────┴──────┘
-//                                                    │ lgui │     │ spc │   │ ent │ MO(3) │ ralt │
-//                                                    └──────┴─────┴─────┘   └─────┴───────┴──────┘
+//    ┌──────┬───┬───┬───┬───────────────┬───────┐                               ┌───────┬────────────┬───┬───┬───┬──────┐
+//    │ tab  │ q │ w │ f │       p       │   b   │                               │   j   │     l      │ u │ Y │ ; │ bspc │
+//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
+//    │ lctl │ a │ r │ s │       t       │   g   │                               │   m   │     n      │ e │ i │ o │  '   │
+//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
+//    │ ralt │ Z │ x │ c │       d       │   v   │                               │   k   │     h      │ , │ . │ / │ esc  │
+//    └──────┴───┴───┴───┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼────────────┼───┴───┴───┴──────┘
+//                       │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT │
+//                       └───────────────┴───────┴─────┘   └─────────────────────┴───────┴────────────┘
+[LAYER_COLEMAK_DH] = LAYOUT_split_3x6_3(
+  KC_TAB  , KC_Q , KC_W , KC_F , KC_P                , KC_B  ,                                           KC_J  , KC_L          , KC_U    , DE_Y   , KC_SCLN , KC_BSPC,
+  KC_LCTL , KC_A , KC_R , KC_S , KC_T                , KC_G  ,                                           KC_M  , KC_N          , KC_E    , KC_I   , KC_O    , KC_QUOT,
+  KC_RALT , DE_Z , KC_X , KC_C , KC_D                , KC_V  ,                                           KC_K  , KC_H          , KC_COMM , KC_DOT , KC_SLSH , KC_ESC ,
+                                 MT(KC_LGUI, KC_ESC) , MO(1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(2) , KC_LEFT_SHIFT
+),
+
+//    ┌──────┬────┬────┬────┬──────┬─────┐               ┌───────┬──────┬───┬──────┬────┬──────┐
+//    │ tab  │ no │ no │ no │  no  │ no  │               │   7   │  8   │ 9 │  no  │ no │ bspc │
+//    ├──────┼────┼────┼────┼──────┼─────┤               ├───────┼──────┼───┼──────┼────┼──────┤
+//    │ lctl │ Ä  │ no │ no │  no  │ no  │               │   4   │  5   │ 6 │ rght │ no │  no  │
+//    ├──────┼────┼────┼────┼──────┼─────┤               ├───────┼──────┼───┼──────┼────┼──────┤
+//    │ lsft │ no │ no │ no │  no  │ no  │               │   1   │  2   │ 3 │  0   │ no │  no  │
+//    └──────┴────┴────┴────┼──────┼─────┼─────┐   ┌─────┼───────┼──────┼───┴──────┴────┴──────┘
+//                          │ lgui │     │ spc │   │ ent │ MO(3) │ ralt │
+//                          └──────┴─────┴─────┘   └─────┴───────┴──────┘
 [LAYER_1] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_NO                        , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,                       KC_7  , KC_8    , KC_9 , KC_NO    , KC_NO   , KC_BSPC,
-  KC_LCTL , UP(DE_LOWER_AE, DE_UPPER_AE) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       KC_4  , KC_5    , KC_6 , KC_RIGHT , XXXXXXX , XXXXXXX,
-  KC_LSFT , XXXXXXX                      , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       KC_1  , KC_2    , KC_3 , KC_0     , XXXXXXX , XXXXXXX,
-                                                               KC_LGUI , KC_TRNS , KC_SPC ,     KC_ENT , MO(3) , KC_RALT
+  KC_TAB  , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,                       KC_7  , KC_8    , KC_9 , KC_NO    , KC_NO   , KC_BSPC,
+  KC_LCTL , DE_ADIA , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       KC_4  , KC_5    , KC_6 , KC_RIGHT , XXXXXXX , XXXXXXX,
+  KC_LSFT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       KC_1  , KC_2    , KC_3 , KC_0     , XXXXXXX , XXXXXXX,
+                                          KC_LGUI , KC_TRNS , KC_SPC ,     KC_ENT , MO(3) , KC_RALT
 ),
 
 //    ┌──────┬────┬────┬────┬──────┬───────┐               ┌─────┬──────┬───┬───┬───┬──────┐
@@ -90,20 +127,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LGUI , MO(3)   , KC_SPC ,     KC_ENT , _______ , KC_RALT
 ),
 
-//    ┌─────────┬─────────┬─────────┬─────────┬──────┬─────┐               ┌─────┬──────┬────┬────┬────┬────┐
-//    │ QK_BOOT │   no    │   no    │   no    │  no  │ no  │               │ no  │  no  │ no │ no │ no │ no │
-//    ├─────────┼─────────┼─────────┼─────────┼──────┼─────┤               ├─────┼──────┼────┼────┼────┼────┤
-//    │ RGB_TOG │ RGB_HUI │ RGB_SAI │ RGB_VAI │  no  │ no  │               │ no  │  no  │ no │ no │ no │ no │
-//    ├─────────┼─────────┼─────────┼─────────┼──────┼─────┤               ├─────┼──────┼────┼────┼────┼────┤
-//    │ RGB_MOD │ RGB_HUD │ RGB_SAD │ RGB_VAD │  no  │ no  │               │ no  │  no  │ no │ no │ no │ no │
-//    └─────────┴─────────┴─────────┴─────────┼──────┼─────┼─────┐   ┌─────┼─────┼──────┼────┴────┴────┴────┘
+//    ┌─────────┬─────────┬─────────┬─────────┬──────┬─────┐               ┌─────┬──────┬────┬────────────────┬──────────────────────┬──────────────────┐
+//    │ QK_BOOT │   no    │   no    │   no    │  no  │ no  │               │ no  │  no  │ no │ DF(LAYER_BASE) │ DF(LAYER_COLEMAK_DH) │ DF(LAYER_GAMING) │
+//    ├─────────┼─────────┼─────────┼─────────┼──────┼─────┤               ├─────┼──────┼────┼────────────────┼──────────────────────┼──────────────────┤
+//    │ RGB_TOG │ RGB_HUI │ RGB_SAI │ RGB_VAI │  no  │ no  │               │ no  │  no  │ no │       no       │          no          │        no        │
+//    ├─────────┼─────────┼─────────┼─────────┼──────┼─────┤               ├─────┼──────┼────┼────────────────┼──────────────────────┼──────────────────┤
+//    │ RGB_MOD │ RGB_HUD │ RGB_SAD │ RGB_VAD │  no  │ no  │               │ no  │  no  │ no │       no       │          no          │        no        │
+//    └─────────┴─────────┴─────────┴─────────┼──────┼─────┼─────┐   ┌─────┼─────┼──────┼────┴────────────────┴──────────────────────┴──────────────────┘
 //                                            │ lgui │     │ spc │   │ ent │     │ ralt │
 //                                            └──────┴─────┴─────┘   └─────┴─────┴──────┘
-[LAYER_3] = LAYOUT_split_3x6_3(
-  QK_BOOT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX,
-  RGB_TOG , RGB_HUI , RGB_SAI , RGB_VAI , XXXXXXX , XXXXXXX ,                       XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX,
-  RGB_MOD , RGB_HUD , RGB_SAD , RGB_VAD , XXXXXXX , XXXXXXX ,                       XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX,
+[LAYER_OPTIONS] = LAYOUT_split_3x6_3(
+  QK_BOOT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       XXXXXXX , XXXXXXX , XXXXXXX , DF(LAYER_BASE) , DF(LAYER_COLEMAK_DH) , DF(LAYER_GAMING),
+  RGB_TOG , RGB_HUI , RGB_SAI , RGB_VAI , XXXXXXX , XXXXXXX ,                       XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX        , XXXXXXX              , XXXXXXX         ,
+  RGB_MOD , RGB_HUD , RGB_SAD , RGB_VAD , XXXXXXX , XXXXXXX ,                       XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX        , XXXXXXX              , XXXXXXX         ,
                                           KC_LGUI , _______ , KC_SPC ,     KC_ENT , _______ , KC_RALT
+),
+
+//    ┌──────┬───┬───┬───┬───────────────┬───────┐                               ┌───────┬────────────┬───┬───┬───┬──────┐
+//    │ tab  │ q │ w │ e │       r       │   t   │                               │   Y   │     u      │ i │ o │ p │ bspc │
+//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
+//    │ lctl │ a │ s │ d │       f       │   g   │                               │   h   │     j      │ k │ l │ ; │  '   │
+//    ├──────┼───┼───┼───┼───────────────┼───────┤                               ├───────┼────────────┼───┼───┼───┼──────┤
+//    │ ralt │ Z │ x │ c │       v       │   b   │                               │   n   │     m      │ , │ . │ / │ esc  │
+//    └──────┴───┴───┴───┼───────────────┼───────┼─────┐   ┌─────────────────────┼───────┼────────────┼───┴───┴───┴──────┘
+//                       │ MT(lgui, esc) │ MO(1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(2) │ left_SHIFT │
+//                       └───────────────┴───────┴─────┘   └─────────────────────┴───────┴────────────┘
+[LAYER_GAMING] = LAYOUT_split_3x6_3(
+  KC_TAB  , KC_Q , KC_W , KC_E , KC_R                , KC_T  ,                                           DE_Y  , KC_U          , KC_I    , KC_O   , KC_P    , KC_BSPC,
+  KC_LCTL , KC_A , KC_S , KC_D , KC_F                , KC_G  ,                                           KC_H  , KC_J          , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
+  KC_RALT , DE_Z , KC_X , KC_C , KC_V                , KC_B  ,                                           KC_N  , KC_M          , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
+                                 MT(KC_LGUI, KC_ESC) , MO(1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(2) , KC_LEFT_SHIFT
 )
 };
 // clang-format on
@@ -131,7 +184,7 @@ bool oled_task_user(void) {
         case LAYER_2:
             oled_write_P(PSTR("Layer 2\n"), false);
             break;
-        case LAYER_3:
+        case LAYER_OPTIONS:
             oled_write_P(PSTR("Layer 3\n"), false);
             break;
         default:
@@ -183,5 +236,40 @@ bool shutdown_user(bool jump_to_bootloader) {
     rgb_matrix_boot(jump_to_bootloader);
 #endif
     // false to not process kb level
+    return false;
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i < led_max; ++i) {
+        if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+            switch (get_highest_layer(layer_state)) {
+                case LAYER_BASE:
+                    rgb_matrix_set_color(i, LAYER_BASE_COLOR);
+                    break;
+                case LAYER_GAMING: {
+                    rgb_matrix_set_color(i, LAYER_GAMING_COLOR);
+                } break;
+                case LAYER_COLEMAK_DH: {
+                    rgb_matrix_set_color(i, LAYER_COLEMAK_DH_COLOR);
+                } break;
+            }
+        }
+    }
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+            uint8_t index = g_led_config.matrix_co[row][col];
+
+            if (index >= led_min && index < led_max && index != NO_LED) {
+                uint16_t keycode = keymap_key_to_keycode(layer_state, (keypos_t){col, row});
+                for (int i = 0; i < sizeof(key_colors) / sizeof(key_colors[1]); ++i) {
+                    if (keycode == key_colors[i].key) {
+                        rgb_matrix_set_color(index, key_colors[i].color[0], key_colors[i].color[1], key_colors[i].color[2]);
+                    }
+                }
+            }
+        }
+    }
+
     return false;
 }
