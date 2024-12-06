@@ -66,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├────────────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
 //    │    lctl    │ a │ s │ d │      f      │      g      │                       │      h      │     j      │ k │ l │ ; │  '   │
 //    ├────────────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ left_SHIFT │ z │ x │ c │      v      │      b      │                       │      n      │     m      │ , │ . │ / │ esc  │
+//    │ left_SHIFT │ z │ x │ c │      v      │      b      │                       │      n      │     m      │ , │ . │ - │ esc  │
 //    └────────────┴───┴───┴───┼─────────────┼─────────────┼─────┐   ┌─────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
 //                             │ LGUI_T(esc) │ MO(LAYER_1) │ spc │   │ RSFT_T(ent) │ MO(LAYER_2) │ rght_SHIFT │
 //                             └─────────────┴─────────────┴─────┘   └─────────────┴─────────────┴────────────┘
 [LAYER_BASE] = LAYOUT_split_3x6_3(
   KC_TAB        , KC_Q , KC_W , KC_E , KC_R           , KC_T        ,                               DE_Y        , KC_U           , KC_I    , KC_O   , KC_P    , KC_BSPC,
   KC_LCTL       , KC_A , KC_S , KC_D , KC_F           , KC_G        ,                               KC_H        , KC_J           , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
-  KC_LEFT_SHIFT , DE_Z , KC_X , KC_C , KC_V           , KC_B        ,                               KC_N        , KC_M           , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
+  KC_LEFT_SHIFT , DE_Z , KC_X , KC_C , KC_V           , KC_B        ,                               KC_N        , KC_M           , KC_COMM , DE_DOT , DE_MINS , KC_ESC ,
                                        LGUI_T(KC_ESC) , MO(LAYER_1) , KC_SPC ,     RSFT_T(KC_ENT) , MO(LAYER_2) , KC_RIGHT_SHIFT
 ),
 
@@ -93,20 +93,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  LGUI_T(KC_ESC) , MO(LAYER_1) , KC_SPC ,     RSFT_T(KC_ENT) , MO(LAYER_2) , KC_RIGHT_SHIFT
 ),
 
-//    ┌──────┬────┬────┬────┬──────┬─────┐               ┌───────────────────┬──────┬───┬──────┬────┬──────┐
-//    │ tab  │ no │ no │ no │  no  │ no  │               │         7         │  8   │ 9 │  no  │ no │ bspc │
-//    ├──────┼────┼────┼────┼──────┼─────┤               ├───────────────────┼──────┼───┼──────┼────┼──────┤
-//    │ lctl │ ä  │ no │ no │  no  │ no  │               │         4         │  5   │ 6 │ rght │ no │  no  │
-//    ├──────┼────┼────┼────┼──────┼─────┤               ├───────────────────┼──────┼───┼──────┼────┼──────┤
-//    │ lsft │ no │ no │ no │  no  │ no  │               │         1         │  2   │ 3 │  0   │ no │  no  │
-//    └──────┴────┴────┴────┼──────┼─────┼─────┐   ┌─────┼───────────────────┼──────┼───┴──────┴────┴──────┘
-//                          │ lgui │     │ spc │   │ ent │ MO(LAYER_OPTIONS) │ ralt │
-//                          └──────┴─────┴─────┘   └─────┴───────────────────┴──────┘
+//    ┌─────┬────┬────┬────┬─────┬─────┐               ┌───────────────────┬─────┬───┬──────┬────┬──────┐
+//    │     │ 1  │ 2  │ 3  │  4  │  5  │               │         6         │  7  │ 8 │  9   │ 0  │ bspc │
+//    ├─────┼────┼────┼────┼─────┼─────┤               ├───────────────────┼─────┼───┼──────┼────┼──────┤
+//    │     │ ä  │ no │ no │ no  │ no  │               │         4         │  5  │ 6 │ rght │ no │  no  │
+//    ├─────┼────┼────┼────┼─────┼─────┤               ├───────────────────┼─────┼───┼──────┼────┼──────┤
+//    │     │ no │ no │ no │ no  │ no  │               │         1         │  2  │ 3 │  0   │ no │  no  │
+//    └─────┴────┴────┴────┼─────┼─────┼─────┐   ┌─────┼───────────────────┼─────┼───┴──────┴────┴──────┘
+//                         │     │     │     │   │     │ MO(LAYER_OPTIONS) │     │
+//                         └─────┴─────┴─────┘   └─────┴───────────────────┴─────┘
 [LAYER_1] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,                       KC_7              , KC_8    , KC_9 , KC_NO    , KC_NO   , KC_BSPC,
-  KC_LCTL , DE_ADIA , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       KC_4              , KC_5    , KC_6 , KC_RIGHT , XXXXXXX , XXXXXXX,
-  KC_LSFT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                       KC_1              , KC_2    , KC_3 , KC_0     , XXXXXXX , XXXXXXX,
-                                          KC_LGUI , KC_TRNS , KC_SPC ,     KC_ENT , MO(LAYER_OPTIONS) , KC_RALT
+  KC_TRNS , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    ,                         KC_6              , KC_7    , KC_8 , KC_9     , KC_0    , KC_BSPC,
+  KC_TRNS , DE_ADIA , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                         KC_4              , KC_5    , KC_6 , KC_RIGHT , XXXXXXX , XXXXXXX,
+  KC_TRNS , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                         KC_1              , KC_2    , KC_3 , KC_0     , XXXXXXX , XXXXXXX,
+                                          KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , MO(LAYER_OPTIONS) , KC_TRNS
 ),
 
 //    ┌──────┬────┬────┬────┬──────┬───────────────────┐               ┌─────┬──────┬───┬───┬───┬──────┐
