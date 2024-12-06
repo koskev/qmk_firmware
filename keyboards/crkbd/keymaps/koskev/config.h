@@ -32,6 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 
+#define RGB_MATRIX_SLEEP
+
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 
 #ifdef RGBLIGHT_ENABLE
