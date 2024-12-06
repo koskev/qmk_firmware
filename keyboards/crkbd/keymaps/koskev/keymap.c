@@ -255,7 +255,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             uint8_t index = g_led_config.matrix_co[row][col];
 
             if (index >= led_min && index < led_max && index != NO_LED) {
-                uint16_t keycode = keymap_key_to_keycode(layer_state, (keypos_t){col, row});
+                uint16_t layer   = get_highest_layer(layer_state);
+                uint16_t keycode = keymaps[layer][row][col];
                 for (int i = 0; i < sizeof(key_colors) / sizeof(key_colors[1]); ++i) {
                     if (keycode == key_colors[i].key) {
                         rgb_matrix_set_color(index, key_colors[i].color[0], key_colors[i].color[1], key_colors[i].color[2]);
