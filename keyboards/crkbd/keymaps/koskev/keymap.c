@@ -109,20 +109,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , MO(LAYER_OPTIONS) , KC_TRNS
 ),
 
-//    ┌──────┬────┬────┬────┬──────┬───────────────────┐               ┌─────┬──────┬───┬───┬───┬──────┐
-//    │ tab  │ !  │ @  │ #  │  $   │         %         │               │  ^  │  &   │ * │ ( │ ) │ bspc │
-//    ├──────┼────┼────┼────┼──────┼───────────────────┤               ├─────┼──────┼───┼───┼───┼──────┤
-//    │ lctl │ no │ no │ no │  no  │        no         │               │  -  │  =   │ [ │ ] │ \ │  `   │
-//    ├──────┼────┼────┼────┼──────┼───────────────────┤               ├─────┼──────┼───┼───┼───┼──────┤
-//    │ lsft │ no │ no │ no │  no  │        no         │               │  _  │  +   │ { │ } │ | │  ~   │
-//    └──────┴────┴────┴────┼──────┼───────────────────┼─────┐   ┌─────┼─────┼──────┼───┴───┴───┴──────┘
-//                          │ lgui │ MO(LAYER_OPTIONS) │ spc │   │ ent │     │ ralt │
-//                          └──────┴───────────────────┴─────┘   └─────┴─────┴──────┘
+//    ┌──────┬────┬────┬────┬─────┬───────────────────┐               ┌──────────┬─────┬───┬───┬─────────────┬──────────┐
+//    │ tab  │ !  │ @  │ #  │  $  │         %         │               │ ^ (dead) │  &  │ * │ ( │      )      │   bspc   │
+//    ├──────┼────┼────┼────┼─────┼───────────────────┤               ├──────────┼─────┼───┼───┼─────────────┼──────────┤
+//    │ lctl │ no │ no │ no │ no  │        no         │               │    -     │  =  │ [ │ ] │ (backslash) │ ` (dead) │
+//    ├──────┼────┼────┼────┼─────┼───────────────────┤               ├──────────┼─────┼───┼───┼─────────────┼──────────┤
+//    │ lsft │ no │ no │ no │ no  │        no         │               │    _     │  +  │ { │ } │      |      │    ~     │
+//    └──────┴────┴────┴────┼─────┼───────────────────┼─────┐   ┌─────┼──────────┼─────┼───┴───┴─────────────┴──────────┘
+//                          │     │ MO(LAYER_OPTIONS) │     │   │     │          │     │
+//                          └─────┴───────────────────┴─────┘   └─────┴──────────┴─────┘
 [LAYER_2] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC           ,                       KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC,
-  KC_LCTL , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX           ,                       KC_MINS , KC_EQL  , KC_LBRC , KC_RBRC , KC_BSLS , KC_GRV ,
-  KC_LSFT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX           ,                       KC_UNDS , KC_PLUS , KC_LCBR , KC_RCBR , KC_PIPE , KC_TILD,
-                                          KC_LGUI , MO(LAYER_OPTIONS) , KC_SPC ,     KC_ENT , _______ , KC_RALT
+  KC_TAB  , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC           ,                         DE_CIRC , DE_AMPR , DE_ASTR , DE_LPRN , DE_RPRN , KC_BSPC,
+  KC_LCTL , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX           ,                         DE_MINS , DE_EQL  , DE_LBRC , DE_RBRC , DE_BSLS , DE_GRV ,
+  KC_LSFT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX           ,                         DE_UNDS , DE_PLUS , DE_LCBR , DE_RCBR , DE_PIPE , DE_TILD,
+                                          KC_TRNS , MO(LAYER_OPTIONS) , KC_TRNS ,     KC_TRNS , _______ , KC_TRNS
 ),
 
 //    ┌─────────┬─────────┬─────────┬─────────┬──────┬─────┐               ┌─────┬──────┬────┬────────────────┬──────────────────────┬──────────────────┐
