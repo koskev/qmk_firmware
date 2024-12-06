@@ -57,41 +57,40 @@ const KeyColor key_colors[] = {
     {.key = DF(LAYER_BASE), .color = {LAYER_BASE_COLOR}},
     {.key = DF(LAYER_COLEMAK_DH), .color = {LAYER_COLEMAK_DH_COLOR}},
     {.key = DF(LAYER_GAMING), .color = {LAYER_GAMING_COLOR}},
-    {.key = KC_H, .color = {LAYER_GAMING_COLOR}},
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌──────┬───┬───┬───┬───────────────┬─────────────┐                               ┌─────────────┬────────────┬───┬───┬───┬──────┐
-//    │ tab  │ q │ w │ e │       r       │      t      │                               │      y      │     u      │ i │ o │ p │ bspc │
-//    ├──────┼───┼───┼───┼───────────────┼─────────────┤                               ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ lctl │ a │ s │ d │       f       │      g      │                               │      h      │     j      │ k │ l │ ; │  '   │
-//    ├──────┼───┼───┼───┼───────────────┼─────────────┤                               ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ ralt │ z │ x │ c │       v       │      b      │                               │      n      │     m      │ , │ . │ / │ esc  │
-//    └──────┴───┴───┴───┼───────────────┼─────────────┼─────┐   ┌─────────────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
-//                       │ MT(lgui, esc) │ MO(LAYER_1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(LAYER_2) │ left_SHIFT │
-//                       └───────────────┴─────────────┴─────┘   └─────────────────────┴─────────────┴────────────┘
+//    ┌────────────┬───┬───┬───┬─────────────┬─────────────┐                       ┌─────────────┬────────────┬───┬───┬───┬──────┐
+//    │    tab     │ q │ w │ e │      r      │      t      │                       │      y      │     u      │ i │ o │ p │ bspc │
+//    ├────────────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
+//    │    lctl    │ a │ s │ d │      f      │      g      │                       │      h      │     j      │ k │ l │ ; │  '   │
+//    ├────────────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
+//    │ left_SHIFT │ z │ x │ c │      v      │      b      │                       │      n      │     m      │ , │ . │ / │ esc  │
+//    └────────────┴───┴───┴───┼─────────────┼─────────────┼─────┐   ┌─────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
+//                             │ LGUI_T(esc) │ MO(LAYER_1) │ spc │   │ RSFT_T(ent) │ MO(LAYER_2) │ rght_SHIFT │
+//                             └─────────────┴─────────────┴─────┘   └─────────────┴─────────────┴────────────┘
 [LAYER_BASE] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_E , KC_R                , KC_T        ,                                           DE_Y        , KC_U          , KC_I    , KC_O   , KC_P    , KC_BSPC,
-  KC_LCTL , KC_A , KC_S , KC_D , KC_F                , KC_G        ,                                           KC_H        , KC_J          , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
-  KC_RALT , DE_Z , KC_X , KC_C , KC_V                , KC_B        ,                                           KC_N        , KC_M          , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
-                                 MT(KC_LGUI, KC_ESC) , MO(LAYER_1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(LAYER_2) , KC_LEFT_SHIFT
+  KC_TAB        , KC_Q , KC_W , KC_E , KC_R           , KC_T        ,                               DE_Y        , KC_U           , KC_I    , KC_O   , KC_P    , KC_BSPC,
+  KC_LCTL       , KC_A , KC_S , KC_D , KC_F           , KC_G        ,                               KC_H        , KC_J           , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
+  KC_LEFT_SHIFT , DE_Z , KC_X , KC_C , KC_V           , KC_B        ,                               KC_N        , KC_M           , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
+                                       LGUI_T(KC_ESC) , MO(LAYER_1) , KC_SPC ,     RSFT_T(KC_ENT) , MO(LAYER_2) , KC_RIGHT_SHIFT
 ),
 
-//    ┌──────┬───┬───┬───┬───────────────┬─────────────┐                               ┌─────────────┬────────────┬───┬───┬───┬──────┐
-//    │ tab  │ q │ w │ f │       p       │      b      │                               │      j      │     l      │ u │ y │ ; │ bspc │
-//    ├──────┼───┼───┼───┼───────────────┼─────────────┤                               ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ lctl │ a │ r │ s │       t       │      g      │                               │      m      │     n      │ e │ i │ o │  '   │
-//    ├──────┼───┼───┼───┼───────────────┼─────────────┤                               ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ ralt │ z │ x │ c │       d       │      v      │                               │      k      │     h      │ , │ . │ / │ esc  │
-//    └──────┴───┴───┴───┼───────────────┼─────────────┼─────┐   ┌─────────────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
-//                       │ MT(lgui, esc) │ MO(LAYER_1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(LAYER_2) │ left_SHIFT │
-//                       └───────────────┴─────────────┴─────┘   └─────────────────────┴─────────────┴────────────┘
+//    ┌──────┬───┬───┬───┬─────────────┬─────────────┐                       ┌─────────────┬────────────┬───┬───┬───┬──────┐
+//    │ tab  │ q │ w │ f │      p      │      b      │                       │      j      │     l      │ u │ y │ ; │ bspc │
+//    ├──────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
+//    │ lctl │ a │ r │ s │      t      │      g      │                       │      m      │     n      │ e │ i │ o │  '   │
+//    ├──────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
+//    │ ralt │ z │ x │ c │      d      │      v      │                       │      k      │     h      │ , │ . │ / │ esc  │
+//    └──────┴───┴───┴───┼─────────────┼─────────────┼─────┐   ┌─────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
+//                       │ LGUI_T(esc) │ MO(LAYER_1) │ spc │   │ RSFT_T(ent) │ MO(LAYER_2) │ rght_SHIFT │
+//                       └─────────────┴─────────────┴─────┘   └─────────────┴─────────────┴────────────┘
 [LAYER_COLEMAK_DH] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_F , KC_P                , KC_B        ,                                           KC_J        , KC_L          , KC_U    , DE_Y   , KC_SCLN , KC_BSPC,
-  KC_LCTL , KC_A , KC_R , KC_S , KC_T                , KC_G        ,                                           KC_M        , KC_N          , KC_E    , KC_I   , KC_O    , KC_QUOT,
-  KC_RALT , DE_Z , KC_X , KC_C , KC_D                , KC_V        ,                                           KC_K        , KC_H          , KC_COMM , KC_DOT , KC_SLSH , KC_ESC ,
-                                 MT(KC_LGUI, KC_ESC) , MO(LAYER_1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(LAYER_2) , KC_LEFT_SHIFT
+  KC_TAB  , KC_Q , KC_W , KC_F , KC_P           , KC_B        ,                               KC_J        , KC_L           , KC_U    , DE_Y   , KC_SCLN , KC_BSPC,
+  KC_LCTL , KC_A , KC_R , KC_S , KC_T           , KC_G        ,                               KC_M        , KC_N           , KC_E    , KC_I   , KC_O    , KC_QUOT,
+  KC_RALT , DE_Z , KC_X , KC_C , KC_D           , KC_V        ,                               KC_K        , KC_H           , KC_COMM , KC_DOT , KC_SLSH , KC_ESC ,
+                                 LGUI_T(KC_ESC) , MO(LAYER_1) , KC_SPC ,     RSFT_T(KC_ENT) , MO(LAYER_2) , KC_RIGHT_SHIFT
 ),
 
 //    ┌──────┬────┬────┬────┬──────┬─────┐               ┌───────────────────┬──────┬───┬──────┬────┬──────┐
@@ -142,20 +141,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LGUI , _______ , KC_SPC ,     KC_ENT , _______ , KC_RALT
 ),
 
-//    ┌──────┬───┬───┬───┬───────────────┬─────────────┐                               ┌─────────────┬────────────┬───┬───┬───┬──────┐
-//    │ tab  │ q │ w │ e │       r       │      t      │                               │      y      │     u      │ i │ o │ p │ bspc │
-//    ├──────┼───┼───┼───┼───────────────┼─────────────┤                               ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ lctl │ a │ s │ d │       f       │      g      │                               │      h      │     j      │ k │ l │ ; │  '   │
-//    ├──────┼───┼───┼───┼───────────────┼─────────────┤                               ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ ralt │ z │ x │ c │       v       │      b      │                               │      n      │     m      │ , │ . │ / │ esc  │
-//    └──────┴───┴───┴───┼───────────────┼─────────────┼─────┐   ┌─────────────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
-//                       │ MT(lgui, esc) │ MO(LAYER_1) │ spc │   │ MT(rght_SHIFT, ent) │ MO(LAYER_2) │ left_SHIFT │
-//                       └───────────────┴─────────────┴─────┘   └─────────────────────┴─────────────┴────────────┘
+//    ┌──────┬───┬───┬───┬─────────────┬─────────────┐                       ┌─────────────┬────────────┬───┬───┬───┬──────┐
+//    │ tab  │ q │ w │ e │      r      │      t      │                       │      y      │     u      │ i │ o │ p │ bspc │
+//    ├──────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
+//    │ lctl │ a │ s │ d │      f      │      g      │                       │      h      │     j      │ k │ l │ ; │  '   │
+//    ├──────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
+//    │ ralt │ z │ x │ c │      v      │      b      │                       │      n      │     m      │ , │ . │ / │ esc  │
+//    └──────┴───┴───┴───┼─────────────┼─────────────┼─────┐   ┌─────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
+//                       │ LGUI_T(esc) │ MO(LAYER_1) │ spc │   │ RSFT_T(ent) │ MO(LAYER_2) │ rght_SHIFT │
+//                       └─────────────┴─────────────┴─────┘   └─────────────┴─────────────┴────────────┘
 [LAYER_GAMING] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_E , KC_R                , KC_T        ,                                           DE_Y        , KC_U          , KC_I    , KC_O   , KC_P    , KC_BSPC,
-  KC_LCTL , KC_A , KC_S , KC_D , KC_F                , KC_G        ,                                           KC_H        , KC_J          , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
-  KC_RALT , DE_Z , KC_X , KC_C , KC_V                , KC_B        ,                                           KC_N        , KC_M          , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
-                                 MT(KC_LGUI, KC_ESC) , MO(LAYER_1) , KC_SPC ,     MT(KC_RIGHT_SHIFT, KC_ENT) , MO(LAYER_2) , KC_LEFT_SHIFT
+  KC_TAB  , KC_Q , KC_W , KC_E , KC_R           , KC_T        ,                               DE_Y        , KC_U           , KC_I    , KC_O   , KC_P    , KC_BSPC,
+  KC_LCTL , KC_A , KC_S , KC_D , KC_F           , KC_G        ,                               KC_H        , KC_J           , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
+  KC_RALT , DE_Z , KC_X , KC_C , KC_V           , KC_B        ,                               KC_N        , KC_M           , KC_COMM , DE_DOT , DE_SLSH , KC_ESC ,
+                                 LGUI_T(KC_ESC) , MO(LAYER_1) , KC_SPC ,     RSFT_T(KC_ENT) , MO(LAYER_2) , KC_RIGHT_SHIFT
 )
 };
 // clang-format on
@@ -203,9 +202,11 @@ bool oled_task_user(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 
-    uint16_t keycode = keymap_key_to_keycode(layer_state, (keypos_t){1, 0});
+    uint16_t keycode = keymap_key_to_keycode(layer_state, (keypos_t){1, 4});
     char     buf[32];
     itoa(keycode, buf, 10);
+    oled_write_ln(buf, false);
+    itoa(DF(LAYER_COLEMAK_DH), buf, 10);
     oled_write(buf, false);
 
     return false;
