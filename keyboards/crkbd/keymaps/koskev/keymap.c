@@ -209,10 +209,10 @@ void oled_render_boot(bool bootloader) {
 void rgb_matrix_boot(bool bootloader) {
     if (bootloader) {
         // red for bootloader
-        rgb_matrix_set_color_all(RGB_RED);
+        // rgb_matrix_set_color_all(RGB_RED);
     } else {
         // off for soft reset
-        rgb_matrix_set_color_all(RGB_OFF);
+        // rgb_matrix_set_color_all(RGB_OFF);
     }
     // force flushing -- otherwise will never happen
     rgb_matrix_update_pwm_buffers();
