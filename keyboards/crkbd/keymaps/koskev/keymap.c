@@ -21,14 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include "action_layer.h"
 #include "color.h"
+#include "keyboard.h"
 #include "keycodes.h"
 #include "keymap_german.h"
 #include "modifiers.h"
 #include "oled_driver.h"
+#include "process_combo.h"
+#include "progmem.h"
 #include "quantum_keycodes.h"
 #include "rgb_matrix.h"
 #include "rgb_matrix_types.h"
 #include "sendstring_german.h"
+
 #include QMK_KEYBOARD_H
 
 #ifdef RGB_MATRIX_ENABLE
@@ -53,6 +57,10 @@ typedef struct {
     uint8_t  color[3];
 } KeyColor;
 
+const uint16_t PROGMEM BACKSPACE_COMBO[] = {KC_LSFT, KC_BSPC};
+combo_t key_combos[] = {
+    COMBO(BACKSPACE_COMBO, KC_DEL)
+};
 const KeyColor key_colors[] = {
     {.key = DF(LAYER_BASE), .color = {LAYER_BASE_COLOR}},
     {.key = DF(LAYER_COLEMAK_DH), .color = {LAYER_COLEMAK_DH_COLOR}},
