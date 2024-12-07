@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "modifiers.h"
 #include "oled_driver.h"
 #include "process_combo.h"
+#include "process_key_override.h"
 #include "progmem.h"
 #include "quantum_keycodes.h"
 #include "rgb_matrix.h"
@@ -57,10 +58,16 @@ typedef struct {
     uint8_t  color[3];
 } KeyColor;
 
-const uint16_t PROGMEM BACKSPACE_COMBO[] = {KC_LSFT, KC_BSPC};
 combo_t key_combos[] = {
-    COMBO(BACKSPACE_COMBO, KC_DEL)
 };
+
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+
+// This globally defines all key overrides to be used
+const key_override_t *key_overrides[] = {
+	&delete_key_override
+};
+
 const KeyColor key_colors[] = {
     {.key = DF(LAYER_BASE), .color = {LAYER_BASE_COLOR}},
     {.key = DF(LAYER_COLEMAK_DH), .color = {LAYER_COLEMAK_DH_COLOR}},
