@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_LAYER_STATE_ENABLE
 
 #define RGB_MATRIX_SLEEP
+#define FORCE_NKRO
 
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 
