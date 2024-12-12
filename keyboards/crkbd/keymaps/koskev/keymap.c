@@ -79,16 +79,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ┌───────────┬───┬───┬───┬─────────────┬─────────────┐                       ┌─────────────┬────────────┬───┬───┬───┬──────┐
 //    │    tab    │ q │ w │ e │      r      │      t      │                       │      z      │     u      │ i │ o │ p │ bspc │
 //    ├───────────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ OSM(lctl) │ a │ s │ d │      f      │      g      │                       │      h      │     j      │ k │ l │ ; │  '   │
+//    │ OSM(lsft) │ a │ s │ d │      f      │      g      │                       │      h      │     j      │ k │ l │ ; │  '   │
 //    ├───────────┼───┼───┼───┼─────────────┼─────────────┤                       ├─────────────┼────────────┼───┼───┼───┼──────┤
-//    │ OSM(lsft) │ y │ x │ c │      v      │      b      │                       │      n      │     m      │ , │ . │ - │ esc  │
+//    │ OSM(lctl) │ y │ x │ c │      v      │      b      │                       │      n      │     m      │ , │ . │ - │ esc  │
 //    └───────────┴───┴───┴───┼─────────────┼─────────────┼─────┐   ┌─────────────┼─────────────┼────────────┼───┴───┴───┴──────┘
 //                            │ LGUI_T(esc) │ MO(LAYER_1) │ spc │   │ RSFT_T(ent) │ MO(LAYER_2) │ rght_SHIFT │
 //                            └─────────────┴─────────────┴─────┘   └─────────────┴─────────────┴────────────┘
 [LAYER_BASE] = LAYOUT_split_3x6_3(
   KC_TAB        , KC_Q , KC_W , KC_E , KC_R           , KC_T        ,                               DE_Z        , KC_U           , KC_I    , KC_O   , KC_P    , KC_BSPC,
-  OSM(MOD_LCTL) , KC_A , KC_S , KC_D , KC_F           , KC_G        ,                               KC_H        , KC_J           , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
-  OSM(MOD_LSFT) , DE_Y , KC_X , KC_C , KC_V           , KC_B        ,                               KC_N        , KC_M           , KC_COMM , DE_DOT , DE_MINS , KC_ESC ,
+  OSM(MOD_LSFT) , KC_A , KC_S , KC_D , KC_F           , KC_G        ,                               KC_H        , KC_J           , KC_K    , KC_L   , DE_SCLN , DE_QUOT,
+  OSM(MOD_LCTL) , DE_Y , KC_X , KC_C , KC_V           , KC_B        ,                               KC_N        , KC_M           , KC_COMM , DE_DOT , DE_MINS , KC_ESC ,
                                        LGUI_T(KC_ESC) , MO(LAYER_1) , KC_SPC ,     RSFT_T(KC_ENT) , MO(LAYER_2) , KC_RIGHT_SHIFT
 ),
 
