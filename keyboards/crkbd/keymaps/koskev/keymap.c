@@ -108,19 +108,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  LGUI_T(KC_ESC) , MO(LAYER_1) , KC_SPC ,     RSFT_T(KC_ENT) , MO(LAYER_2) , KC_RIGHT_SHIFT
 ),
 
-//    ┌─────┬────┬────┬────┬─────┬─────┐               ┌───────────────────┬──────┬────┬──────┬────┬──────┐
-//    │     │ 1  │ 2  │ 3  │  4  │  5  │               │         6         │  7   │ 8  │  9   │ 0  │ bspc │
-//    ├─────┼────┼────┼────┼─────┼─────┤               ├───────────────────┼──────┼────┼──────┼────┼──────┤
-//    │     │ ä  │ no │ no │ no  │ no  │               │       left        │ down │ up │ rght │ no │  no  │
-//    ├─────┼────┼────┼────┼─────┼─────┤               ├───────────────────┼──────┼────┼──────┼────┼──────┤
-//    │     │ no │ no │ no │ no  │ no  │               │         1         │  2   │ 3  │  0   │ no │  no  │
-//    └─────┴────┴────┴────┼─────┼─────┼─────┐   ┌─────┼───────────────────┼──────┼────┴──────┴────┴──────┘
+//    ┌─────┬────┬────┬────┬─────┬─────┐               ┌───────────────────┬──────┬──────┬──────┬──────┬────┐
+//    │     │ 1  │ 2  │ 3  │  4  │  5  │               │         6         │  7   │  8   │  9   │  0   │ ü  │
+//    ├─────┼────┼────┼────┼─────┼─────┤               ├───────────────────┼──────┼──────┼──────┼──────┼────┤
+//    │     │ ä  │ ß  │ no │ no  │ no  │               │       left        │ down │  up  │ rght │  ö   │ ä  │
+//    ├─────┼────┼────┼────┼─────┼─────┤               ├───────────────────┼──────┼──────┼──────┼──────┼────┤
+//    │     │ no │ no │ no │ no  │ no  │               │       vold        │ volu │ mprv │ mnxt │ mply │ no │
+//    └─────┴────┴────┴────┼─────┼─────┼─────┐   ┌─────┼───────────────────┼──────┼──────┴──────┴──────┴────┘
 //                         │     │     │     │   │     │ MO(LAYER_OPTIONS) │      │
 //                         └─────┴─────┴─────┘   └─────┴───────────────────┴──────┘
 [LAYER_1] = LAYOUT_split_3x6_3(
-  KC_TRNS , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    ,                         KC_6              , KC_7    , KC_8  , KC_9     , KC_0    , KC_BSPC,
-  KC_TRNS , DE_ADIA , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                         KC_LEFT           , KC_DOWN , KC_UP , KC_RIGHT , XXXXXXX , XXXXXXX,
-  KC_TRNS , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                         KC_1              , KC_2    , KC_3  , KC_0     , XXXXXXX , XXXXXXX,
+  KC_TRNS , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    ,                         KC_6              , KC_7    , KC_8    , KC_9     , KC_0    , DE_UDIA,
+  KC_TRNS , DE_ADIA , DE_SS   , XXXXXXX , XXXXXXX , XXXXXXX ,                         KC_LEFT           , KC_DOWN , KC_UP   , KC_RIGHT , DE_ODIA , DE_ADIA,
+  KC_TRNS , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                         KC_VOLD           , KC_VOLU , KC_MPRV , KC_MNXT  , KC_MPLY , XXXXXXX,
                                           KC_TRNS , KC_TRNS , KC_TRNS ,     KC_TRNS , MO(LAYER_OPTIONS) , KC_TRNS
 ),
 
